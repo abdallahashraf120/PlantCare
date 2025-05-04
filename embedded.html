@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Care</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="shortcut icon" href="./images/Plant_care-removebg-preview.png">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/mobile.css" media="screen and (max-width: 768px)">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: var(--color-primary);
+            --secondary-color: var(--color-tertiary);
+            --dark-bg: var(--color-dark);
+            --light-bg: var(--color-white);
+            --text-dark: var(--color-dark);
+            --text-light: var(--color-secondary);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./images/Precision-agriculture-istock-ChatkarenStudio-e1720729648402.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text-light);
+            padding: 120px 0;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #fff;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 2.5rem;
+            cursor: pointer;
+            padding: 1rem;
+            transition: opacity 0.3s ease;
+            display: block;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+        }
+
+        .hamburger-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 250px;
+            height: 100vh;
+            background: var(--dark-bg);
+            padding: 4rem 2rem;
+            transition: left 0.3s ease;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav_list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .nav_item {
+            margin: 0;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav_link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.8rem 0;
+            font-size: 1.4rem;
+        }
+
+        .nav_link:hover {
+            color: var(--secondary-color);
+            padding-left: 0.8rem;
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        /* Block Diagram Section */
+        .diagram-section {
+            padding: 80px 0;
+            background-color: var(--light-bg);
+        }
+
+        .diagram-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .diagram-image {
+            width: 100%;
+            margin-top: 5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Component Section */
+        .component-section {
+            padding: 80px 0;
+            background-color: var(--light-bg);
+        }
+
+        .component-card {
+            background: var(--light-bg);
+            border-radius: 12px;
+            padding: 30px;
+            height: 100%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .component-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Code Section */
+        .code-section {
+            padding: 80px 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        .code-block {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        /* Hardware Section */
+        .hardware-section {
+            padding: 80px 0;
+            background-color: var(--light-bg);
+        }
+
+        .hardware-image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer Section */
+        .footer-section {
+            padding: 60px 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        .download-btn {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--secondary-color);
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="hero-section">
+        <nav class="nav">
+            <button class="hamburger-btn" id="hamburgerBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <div class="nav-menu" id="navMenu">
+            <button class="close-btn" id="closeBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul class="nav_list">
+                <li class="nav_item"><a href="home.html" class="nav_link">Home</a></li>
+                <li class="nav_item"><a href="home.html#memberss" class="nav_link">About us</a></li>
+                <li class="nav_item"><a href="paper.html" class="nav_link">Paper</a></li>
+                <li class="nav_item"><a href="home.html#downloads" class="nav_link">Downloads</a></li>
+                <li class="nav_item"><a href="home.html#contactus" class="nav_link">Contact us</a></li>
+            </ul>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Embedded System Architecture</h1>
+            <p class="hero-subtitle">Advanced plant monitoring and care system utilizing IoT sensors and microcontrollers for optimal plant growth conditions.</p>
+        </div>
+    </header>
+
+    <!-- Block Diagram Section -->
+    <section class="diagram-section">
+        <div class="container">
+            <h2 class="text-center mb-5">System Architecture</h2>
+            <div class="diagram-container">
+                <img src="./images/embedded.png" alt="System Architecture Diagram" class="diagram-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Component Section -->
+    <section class="component-section">
+        <div class="container">
+            <h2 class="text-center mb-5">System Components</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="component-card text-center">
+                        <i class="fas fa-microchip component-icon"></i>
+                        <h3>Microcontroller</h3>
+                        <p>ESP32-based control unit with WiFi and Bluetooth capabilities for remote monitoring.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="component-card text-center">
+                        <i class="fas fa-thermometer-half component-icon"></i>
+                        <h3>Sensors</h3>
+                        <p>Soil moisture, temperature, humidity, and motion sensors for comprehensive monitoring.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="component-card text-center">
+                        <i class="fas fa-water component-icon"></i>
+                        <h3>Actuators</h3>
+                        <p>Automated watering system and LED grow lights for optimal plant care.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Section -->
+    <section class="code-section" style="background-image: url('./images/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsb2ZmaWNlMTJfYWJzdHJhY3RfZ2VvbWV0cmljX2dyZWVuX2JhY2tncm91bmRfYnVzaW5lc3NfYV9lN2Q4ZWRmNC0wZTEwLTQ4MTMtOGIwYi05YzZlNjVlYzAyMDRfMS5qcGc.jpg');">
+        <div class="container">
+            <h2 class="text-center mb-5" style="font-weight: bolder;">System Logic</h2>
+            <div class="code-block">
+                <pre><code>
+                    #include Wire.h
+                    #include LiquidCrystal_I2C.h
+                    #include DHT.h
+                    
+                    // Define Sensor Pins
+                    #define DHTPIN 15       // DHT22 connected to GPIO 15
+                    #define DHTTYPE DHT22
+                    #define PIR_PIN 14      // PIR motion sensor connected to GPIO 14
+                    #define SOIL_PIN 32     // Potentiometer (simulating soil moisture) to GPIO 32 (A0)
+                    
+                    // Initialize DHT sensor
+                    DHT dht(DHTPIN, DHTTYPE);
+                    
+                    // Initialize LCD (I2C address 0x27, 16 columns, 2 rows)
+                    LiquidCrystal_I2C lcd(0x27, 16, 2);
+                    
+                    void setup() {
+                        Serial.begin(115200);
+                        dht.begin();
+                        pinMode(PIR_PIN, INPUT);
+                        
+                        // Initialize LCD
+                        lcd.init();
+                        lcd.backlight();
+                        lcd.setCursor(0, 0);
+                        lcd.print("Initializing...");
+                        delay(2000);
+                    }
+                    
+                    void loop() {
+                        // Read Temperature & Humidity
+                        float temperature = dht.readTemperature();
+                        float humidity = dht.readHumidity();
+                        
+                        // Check if DHT22 is returning valid values
+                        if (isnan(temperature) || isnan(humidity)) {
+                            Serial.println("DHT22 error reading data!");
+                            lcd.clear();
+                            lcd.setCursor(0, 0);
+                            lcd.print("DHT22 Error!");
+                            delay(2000);
+                            return;
+                        }
+                    
+                        // Read PIR Sensor
+                        int motion = digitalRead(PIR_PIN);
+                    
+                        // Read Soil Moisture (Potentiometer)
+                        int soilMoistureValue = analogRead(SOIL_PIN);
+                        int moisturePercent = map(soilMoistureValue, 0, 4095, 100, 0); // Convert to %
+                    
+                        // Display Readings on Serial Monitor
+                        Serial.print("Temp: "); Serial.print(temperature); Serial.println("°C");
+                        Serial.print("Humidity: "); Serial.print(humidity); Serial.println("%");
+                        Serial.print("Motion: "); Serial.println(motion ? "Yes" : "No");
+                        Serial.print("Soil Moisture: "); Serial.print(moisturePercent); Serial.println("%");
+                        
+                        // Display Readings on LCD
+                        lcd.clear();
+                        lcd.setCursor(0, 0);
+                        lcd.print("Temp: ");
+                        lcd.print(temperature);
+                        lcd.print("C");
+                    
+                        lcd.setCursor(0, 1);
+                        lcd.print("Soil: ");
+                        lcd.print(moisturePercent);
+                        lcd.print("% ");
+                    
+                        delay(2000); // Update every 2 seconds
+                    
+                        lcd.clear();
+                        lcd.setCursor(0, 0);
+                        lcd.print("Humidity: ");
+                        lcd.print(humidity);
+                        lcd.print("%");
+                    
+                        lcd.setCursor(0, 1);
+                        lcd.print("Motion: ");
+                        lcd.print(motion ? "YES" : "NO");
+                    
+                        delay(2000); // Update every 2 seconds
+                    }</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Section -->
+    <section class="hardware-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Hardware Setup</h2>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                  <video src="./assests/embeddedvideo.mp4" class="hardware-image" controls></video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="footer-section" style="background-image: url('./images/Betterimage.ai_1744384260064.jpeg');">
+        <div class="container text-center">
+            <h2 class="mb-4">Download Resources</h2>
+            <div class="mb-4">
+                <a href="./assests/plant disease detection device with a camera and soil sensors.pdf" class="download-btn ms-3">
+                    <i class="fas fa-file-pdf"></i>
+                    Embedded System PDF
+                </a>
+            </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.add('active');
+            hamburgerBtn.classList.add('hidden');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburgerBtn.classList.remove('hidden');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburgerBtn.classList.remove('hidden');
+            }
+        });
+    </script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Back to Top Button
+      const backToTopButton = document.getElementById('backToTop');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    </script>
+</body>
+</html>

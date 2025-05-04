@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growing Plants Loader</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #e8f5e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        
+        .loader-container {
+            text-align: center;
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .loading-text {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .progress-bar {
+            width: 200px;
+            height: 8px;
+            background-color: #c8e6c9;
+            border-radius: 4px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: #4caf50;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .plants-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+        
+        .plant {
+            position: relative;
+            width: 60px;
+            height: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: bottom center;
+        }
+        
+        .pot {
+            width: 40px;
+            height: 30px;
+            background-color: #8d6e63;
+            border-radius: 0 0 5px 5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pot:before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 40px;
+            height: 10px;
+            background-color: #a1887f;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .stem {
+            width: 6px;
+            background-color: #558b2f;
+            position: relative;
+            z-index: 2;
+            height: 0;
+            transform-origin: bottom center;
+        }
+        
+        .leaf {
+            position: absolute;
+            background-color: #7cb342;
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(-45deg);
+            opacity: 0;
+        }
+        
+        .flower {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        .petal {
+            position: absolute;
+            background-color: #f8bbd0;
+            border-radius: 50% 50% 0 50%;
+            width: 10px;
+            height: 10px;
+        }
+        
+        .center {
+            position: absolute;
+            background-color: #fdd835;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            top: 6px;
+            left: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+
+    <div class="loader-container">
+        <div class="plants-container">
+            <div class="plant" id="plant1">
+                <div class="stem"></div>
+                <div class="pot"></div>
+            </div>
+            <div class="plant" id="plant2">
+                <div class="stem"></div>
+                <div class="pot"></div>
+            </div>
+            <div class="plant" id="plant3">
+                <div class="stem"></div>
+                <div class="pot"></div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="loading-text">Growing your garden...</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            startGrowing();
+        });
+        
+        function startGrowing() {
+            // Reset progress bar
+            document.getElementById('progress').style.width = '0';
+            
+            // Create plants with different characteristics
+            createPlant('plant1', 120, 3, true);
+            createPlant('plant2', 150, 4, false);
+            createPlant('plant3', 180, 5, true);
+            
+            // Animate progress bar
+            let progress = 0;
+            const progressBar = document.getElementById('progress');
+            const interval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    // Redirect to index.html after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'home.html';
+                    }, 500);
+                }
+            }, 30);
+        }
+        
+        function createPlant(plantId, maxHeight, leafCount, hasFlower) {
+            const plant = document.getElementById(plantId);
+            const stem = plant.querySelector('.stem');
+            
+            // Clear previous leaves and flowers
+            plant.querySelectorAll('.leaf, .flower').forEach(el => el.remove());
+            
+            // Reset stem height
+            stem.style.height = '0';
+            
+            // Animate stem growth
+            let height = 0;
+            const growInterval = setInterval(() => {
+                height += 4;
+                stem.style.height = height + 'px';
+                
+                if (height >= maxHeight) {
+                    clearInterval(growInterval);
+                    
+                    // Add leaves when stem is fully grown
+                    addLeaves(plant, leafCount);
+                    
+                    // Add flower if specified
+                    if (hasFlower) {
+                        setTimeout(() => {
+                            addFlower(plant, maxHeight);
+                        }, 150);
+                    }
+                }
+            }, 30);
+        }
+        
+        function addLeaves(plant, count) {
+            const stemHeight = parseInt(plant.querySelector('.stem').style.height);
+            
+            for (let i = 0; i < count; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                
+                // Random leaf size
+                const size = 15 + Math.random() * 15;
+                leaf.style.width = size + 'px';
+                leaf.style.height = size + 'px';
+                
+                // Position leaves at different heights on the stem
+                const position = 10 + (stemHeight - 20) * (i / count);
+                leaf.style.bottom = position + 'px';
+                
+                // Alternate leaf sides
+                const side = i % 2 === 0 ? -1 : 1;
+                leaf.style.left = (side * (15 + Math.random() * 10)) + 'px';
+                
+                plant.appendChild(leaf);
+                
+                // Animate leaf appearance
+                setTimeout(() => {
+                    leaf.style.opacity = '1';
+                    leaf.style.transform = `rotate(${side * (20 + Math.random() * 20)}deg)`;
+                }, i * 50);
+            }
+        }
+        
+        function addFlower(plant, stemHeight) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Position flower at top of stem
+            flower.style.bottom = (stemHeight - 5) + 'px';
+            flower.style.left = '50%';
+            flower.style.marginLeft = '-15px';
+            flower.style.width = '20px';
+            flower.style.height = '20px';
+            flower.style.position = 'absolute';
+            
+            // Create petals
+            for (let i = 0; i < 6; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                
+                const angle = (i * 60) + Math.random() * 20;
+                const distance = 8 + Math.random() * 4;
+                const x = Math.cos(angle * Math.PI / 180) * distance;
+                const y = Math.sin(angle * Math.PI / 180) * distance;
+                
+                petal.style.left = (10 + x) + 'px';
+                petal.style.top = (10 + y) + 'px';
+                petal.style.transform = `rotate(${angle}deg)`;
+                
+                // Random petal size variation
+                const sizeVariation = 0.8 + Math.random() * 0.4;
+                petal.style.width = (10 * sizeVariation) + 'px';
+                petal.style.height = (10 * sizeVariation) + 'px';
+                
+                flower.appendChild(petal);
+            }
+            
+            // Add flower center
+            const center = document.createElement('div');
+            center.className = 'center';
+            flower.appendChild(center);
+            
+            plant.appendChild(flower);
+            
+            // Animate flower blooming
+            setTimeout(() => {
+                flower.style.opacity = '1';
+                flower.style.transform = 'scale(1)';
+            }, 50);
+        }
+    </script>
+    </div>
+
+</body>
+</html>
